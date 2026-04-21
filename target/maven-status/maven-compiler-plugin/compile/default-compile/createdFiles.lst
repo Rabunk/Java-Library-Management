@@ -1,0 +1,16 @@
+com\library\util\DatabaseConnection.class
+com\library\dao\UserDAO.class
+com\library\model\Product.class
+com\library\dao\ProductDAO.class
+com\library\gui\ReviewEditDialog.class
+com\library\dao\ReviewDAO.class
+com\library\gui\MainFrame.class
+com\library\gui\ProductDetailsDialog.class
+com\library\model\Category.class
+com\library\gui\LibraryPanel$1.class
+com\library\gui\ProductEditDialog.class
+com\library\model\Review.class
+com\library\model\User.class
+com\library\gui\LoginDialog.class
+com\library\dao\CategoryDAO.class
+com\library\gui\LibraryPanel.class
