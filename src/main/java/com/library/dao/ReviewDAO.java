@@ -30,8 +30,9 @@ public class ReviewDAO {
             pstmt.setLong(1, review.getUserId());
             pstmt.setLong(2, review.getProductId());
             pstmt.setInt(3, review.getRating());
-            pstmt.setString(4, review.getComment());
-            pstmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+            pstmt.setString(4, review.getComment() != null ? review.getComment() : "");
+            LocalDateTime createdAt = review.getCreatedAt() != null ? review.getCreatedAt() : LocalDateTime.now();
+            pstmt.setTimestamp(5, Timestamp.valueOf(createdAt));
             return pstmt.executeUpdate() > 0;
         }
     }

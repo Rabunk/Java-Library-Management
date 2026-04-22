@@ -98,13 +98,32 @@ public class ReviewEditDialog extends JDialog {
     }
 
     private void submit() {
+        String comment = commentArea.getText().trim();
+        Integer rating = (Integer) ratingSpinner.getValue();
+        
+        if (rating < 1 || rating > 5) {
+            JOptionPane.showMessageDialog(this, "Đánh giá phải từ 1 đến 5", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         try {
+            if (currentUser == null || currentUser.getId() == null) {
+                JOptionPane.showMessageDialog(this, "Lỗi: Không xác định được người dùng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            if (productId == null) {
+                JOptionPane.showMessageDialog(this, "Lỗi: Không xác định được sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             Review review = new Review(
                     currentUser.getId(),
                     productId,
-                    (Integer) ratingSpinner.getValue(),
-                    commentArea.getText().trim()
+                    rating,
+                    comment.isEmpty() ? "" : comment
             );
+            review.setCreatedAt(java.time.LocalDateTime.now());
             
             if (reviewDAO.addReview(review)) {
                 JOptionPane.showMessageDialog(this, "Gửi đánh giá thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);

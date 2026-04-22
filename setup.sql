@@ -139,6 +139,21 @@ CREATE TABLE `product_views` (
   `viewed_at` datetime NOT NULL
 );
 
+CREATE TABLE `borrows` (
+  `id` bigint PRIMARY KEY AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `product_id` bigint NOT NULL,
+  `borrow_date` datetime NOT NULL,
+  `due_date` datetime NOT NULL,
+  `return_date` datetime,
+  `status` varchar(20) NOT NULL DEFAULT 'borrowing' COMMENT 'borrowing|returned|overdue',
+  `fine_amount` decimal(12,2),
+  `fine_reason` text,
+  `notes` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+);
+
 -- Indexes
 CREATE UNIQUE INDEX `uk_users_email` ON `users` (`email`);
 CREATE INDEX `idx_users_role` ON `users` (`role`);
@@ -171,6 +186,10 @@ CREATE UNIQUE INDEX `uk_reviews_user_product` ON `reviews` (`user_id`, `product_
 CREATE INDEX `idx_reviews_product_created` ON `reviews` (`product_id`, `created_at`);
 CREATE INDEX `idx_product_views_user_time` ON `product_views` (`user_id`, `viewed_at`);
 CREATE INDEX `idx_product_views_product_time` ON `product_views` (`product_id`, `viewed_at`);
+CREATE INDEX `idx_borrows_user_id` ON `borrows` (`user_id`);
+CREATE INDEX `idx_borrows_product_id` ON `borrows` (`product_id`);
+CREATE INDEX `idx_borrows_status` ON `borrows` (`status`);
+CREATE INDEX `idx_borrows_due_date` ON `borrows` (`due_date`);
 
 -- Foreign Keys
 ALTER TABLE `products` ADD FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
@@ -191,6 +210,8 @@ ALTER TABLE `reviews` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 ALTER TABLE `reviews` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 ALTER TABLE `product_views` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 ALTER TABLE `product_views` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+ALTER TABLE `borrows` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `borrows` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 -- ========== SAMPLE DATA ==========
 
