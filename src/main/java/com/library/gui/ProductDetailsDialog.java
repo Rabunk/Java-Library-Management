@@ -20,7 +20,7 @@ public class ProductDetailsDialog extends JDialog {
     private User currentUser;
 
     public ProductDetailsDialog(Window parent, Product product, List<Review> reviews, CategoryDAO categoryDAO, ReviewDAO reviewDAO, User currentUser) {
-        super((JFrame) parent, "Chi tiết sách", true);
+        super(parent, "Chi tiết sách", ModalityType.APPLICATION_MODAL);
         this.product = product;
         this.reviews = reviews;
         this.categoryDAO = categoryDAO;

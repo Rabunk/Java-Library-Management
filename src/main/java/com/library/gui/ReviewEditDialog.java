@@ -15,7 +15,7 @@ public class ReviewEditDialog extends JDialog {
     private JTextArea commentArea;
 
     public ReviewEditDialog(Window parent, Long productId, User currentUser, ReviewDAO reviewDAO) {
-        super((JFrame) parent, "Thêm đánh giá", true);
+        super(parent, "Thêm đánh giá", ModalityType.APPLICATION_MODAL);
         this.productId = productId;
         this.currentUser = currentUser;
         this.reviewDAO = reviewDAO;

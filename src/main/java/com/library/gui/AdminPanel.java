@@ -28,7 +28,7 @@ public class AdminPanel extends JPanel {
         sidebarPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // Logo/Title
-        JLabel logoLabel = new JLabel("Mini-Library");
+        JLabel logoLabel = new JLabel("Library Admin");
         logoLabel.setFont(new Font("Arial", Font.BOLD, 18));
         logoLabel.setForeground(new Color(100, 150, 255));
         logoLabel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
@@ -41,15 +41,15 @@ public class AdminPanel extends JPanel {
         sidebarPanel.add(subtitleLabel);
 
         // Menu Items
-        JButton libBtn = createMenuButton("📚 Kho Sách", "library");
+        JButton libBtn = createMenuButton("Kho Sách", "library");
         libBtn.addActionListener(e -> showPanel("library"));
         sidebarPanel.add(libBtn);
 
-        JButton userBtn = createMenuButton("👥 Độc Giả", "user");
+        JButton userBtn = createMenuButton("Độc Giả", "user");
         userBtn.addActionListener(e -> showPanel("user"));
         sidebarPanel.add(userBtn);
 
-        JButton borrowBtn = createMenuButton("📖 Mượn / Trả", "borrow");
+        JButton borrowBtn = createMenuButton("Mượn / Trả", "borrow");
         borrowBtn.addActionListener(e -> showPanel("borrow"));
         sidebarPanel.add(borrowBtn);
 
