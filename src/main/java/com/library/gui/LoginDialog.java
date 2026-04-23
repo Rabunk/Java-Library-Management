@@ -21,7 +21,7 @@ public class LoginDialog extends JDialog {
 
     private void initComponents() {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setSize(400, 300);
+        setSize(500, 450);
         setLocationRelativeTo(null);
         setResizable(false);
 
@@ -41,18 +41,11 @@ public class LoginDialog extends JDialog {
         gbc.gridwidth = 2;
         mainPanel.add(titleLabel, gbc);
 
-        // Subtitle
-        JLabel subtitleLabel = new JLabel("Quản lý thư viện");
-        subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-        subtitleLabel.setForeground(new Color(150, 150, 150));
-        gbc.gridy = 1;
-        mainPanel.add(subtitleLabel, gbc);
-
         // Email Label
-        JLabel emailLabel = new JLabel("Tên đăng nhập");
+        JLabel emailLabel = new JLabel("Email");
         emailLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.gridwidth = 1;
         mainPanel.add(emailLabel, gbc);
 
@@ -63,14 +56,14 @@ public class LoginDialog extends JDialog {
         emailField.setCaretColor(Color.WHITE);
         emailField.setBorder(BorderFactory.createLineBorder(new Color(60, 80, 120)));
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         mainPanel.add(emailField, gbc);
 
         // Password Label
         JLabel passwordLabel = new JLabel("Mật khẩu");
         passwordLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 3;
         mainPanel.add(passwordLabel, gbc);
 
         // Password Field
@@ -80,7 +73,7 @@ public class LoginDialog extends JDialog {
         passwordField.setCaretColor(Color.WHITE);
         passwordField.setBorder(BorderFactory.createLineBorder(new Color(60, 80, 120)));
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 4;
         mainPanel.add(passwordField, gbc);
 
         // Button Panel
@@ -96,16 +89,16 @@ public class LoginDialog extends JDialog {
         loginButton.addActionListener(e -> login());
         buttonPanel.add(loginButton);
 
-        exitButton = new JButton("Thoát");
+        exitButton = new JButton("Đăng ký");
         exitButton.setBackground(new Color(59, 130, 246));
         exitButton.setForeground(Color.WHITE);
         exitButton.setFocusPainted(false);
         exitButton.setFont(new Font("Arial", Font.BOLD, 14));
-        exitButton.addActionListener(e -> exit());
+        exitButton.addActionListener(e -> openRegister());
         buttonPanel.add(exitButton);
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         mainPanel.add(buttonPanel, gbc);
 
@@ -124,27 +117,34 @@ public class LoginDialog extends JDialog {
         try {
             UserDAO userDAO = new UserDAO();
             User user = userDAO.getUserByEmail(email);
-            
+
             if (user != null && user.getPasswordHash().equals(password)) {
                 loggedInUser = user;
                 loginSuccess = true;
-                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thành công",
+                        JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Email hoặc mật khẩu không đúng!", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Email hoặc mật khẩu không đúng!", "Lỗi đăng nhập",
+                        JOptionPane.ERROR_MESSAGE);
                 emailField.setText("");
                 passwordField.setText("");
                 emailField.requestFocus();
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu: " + e.getMessage(), "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
 
-    private void exit() {
-        dispose();
-        System.exit(0);
+    private void openRegister() {
+        Window parentWindow = SwingUtilities.getWindowAncestor(this);
+
+        JFrame parentFrame = (parentWindow instanceof JFrame) ? (JFrame) parentWindow : null;
+
+        RegisterDialog regDialog = new RegisterDialog(parentFrame);
+        regDialog.setVisible(true);
     }
 
     public User getLoggedInUser() {

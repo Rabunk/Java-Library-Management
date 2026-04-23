@@ -1,5 +1,6 @@
 -- Library Management System Database Schema and Setup Script
 -- Copy from Library.sql and include sample data
+DROP DATABASE IF EXISTS library_db;
 
 CREATE DATABASE IF NOT EXISTS library_db;
 USE library_db;

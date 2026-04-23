@@ -38,15 +38,6 @@ public class CustomerPanel extends JPanel {
         welcomePanel.add(Box.createVerticalStrut(20));
         welcomePanel.add(userLabel);
 
-        // Description
-        JLabel descLabel = new JLabel("<html><center>Trang quản lý cá nhân của bạn sẽ sớm được cập nhật<br/>với các tính năng theo dõi mượn sách, lịch sử, v.v.</center></html>");
-        descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        descLabel.setForeground(new Color(150, 150, 150));
-        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        descLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        welcomePanel.add(Box.createVerticalStrut(30));
-        welcomePanel.add(descLabel);
-
         welcomePanel.add(Box.createVerticalGlue());
 
         add(welcomePanel, BorderLayout.CENTER);
